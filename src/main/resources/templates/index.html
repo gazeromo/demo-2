@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<script type="text/javascript"
+ src="https://static-cdn.kloudless.com/p/platform/sdk/kloudless.authenticator.js"></script>
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+<button id="test">Test OAuth authentication</button>
+<script>
+$(function() {
+	  window.Kloudless.authenticator($("#test"), {
+	    client_id: 'UOgAgpNDvRVzJTE_3MeomH7bFsply7ZoWV5EAdRmsNCRbanW',
+	  }, function(res) {
+		  var newEl = document.createElement('pre');
+		  $.ajax({
+		        url: '/addService',
+		        type: 'POST',
+		        contentType: 'application/json',
+		        data: JSON.stringify(res),
+		        dataType: 'json',
+		        success: function(data) {
+
+					newEl.appendChild(document.createTextNode("Added!" + JSON.stringify(data)));
+					document.body.appendChild(newEl);
+			    },
+		    });
+
+          var el = document.createElement('pre');
+          el.appendChild(document.createTextNode(JSON.stringify(res, null, 2)));
+          document.body.appendChild(el);
+	    
+	  });
+	})
+</script>
+</body>
+</html>
